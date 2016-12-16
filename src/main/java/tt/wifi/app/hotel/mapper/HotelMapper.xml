@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tt.wifi.app.hotel.dao.HotelMapper" >
+  <resultMap id="BaseResultMap" type="tt.wifi.app.hotel.model.Hotel" >
+    <id column="HOTEL_ID" property="hotelId" jdbcType="BIGINT" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="GPS_LOCATION" property="gpsLocation" jdbcType="OTHER" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="LIST_IMG" property="listImg" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="SUPPLY_NAME" property="supplyName" jdbcType="VARCHAR" />
+    <result column="SUPPLY_CONTACT" property="supplyContact" jdbcType="VARCHAR" />
+    <result column="SUPPLY_LEGAL_PHONE" property="supplyLegalPhone" jdbcType="VARCHAR" />
+    <result column="SUPPLY_AGAINST_PHONE" property="supplyAgainstPhone" jdbcType="VARCHAR" />
+    <result column="SUPPLY_LEGAL_PERSON" property="supplyLegalPerson" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="SUPPLY_DISCRIPTION" property="supplyDiscription" jdbcType="VARCHAR" />
+    <result column="CONTRACT" property="contract" jdbcType="VARCHAR" />
+    <result column="LICENCE" property="licence" jdbcType="VARCHAR" />
+    <result column="PERMIT" property="permit" jdbcType="VARCHAR" />
+    <result column="IS_DELETE" property="isDelete" jdbcType="INTEGER" />
+    <result column="ACCOUNT" property="account" jdbcType="VARCHAR" />
+    <result column="COLLECTION_BANK" property="collectionBank" jdbcType="VARCHAR" />
+    <result column="COLLECTION_PROVINCE" property="collectionProvince" jdbcType="VARCHAR" />
+    <result column="COLLECTION_ACCOUNT" property="collectionAccount" jdbcType="VARCHAR" />
+    <result column="COLLECTION_CITY" property="collectionCity" jdbcType="VARCHAR" />
+    <result column="COLLECTION_NAME" property="collectionName" jdbcType="VARCHAR" />
+    <result column="COLLECTION_EMAIL" property="collectionEmail" jdbcType="VARCHAR" />
+    <result column="COLLECTION_BRANCH" property="collectionBranch" jdbcType="VARCHAR" />
+    <result column="COLLECTION_MOBILE" property="collectionMobile" jdbcType="VARCHAR" />
+    <result column="SUPPLY_ID" property="supplyId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="tt.wifi.app.hotel.model.Hotel" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    HOTEL_ID, NAME, TITLE, ADDRESS, GPS_LOCATION, PHONE_NUMBER, LIST_IMG, STATE, SUPPLY_NAME, 
+    SUPPLY_CONTACT, SUPPLY_LEGAL_PHONE, SUPPLY_AGAINST_PHONE, SUPPLY_LEGAL_PERSON, PASSWORD, 
+    SUPPLY_DISCRIPTION, CONTRACT, LICENCE, PERMIT, IS_DELETE, ACCOUNT, COLLECTION_BANK, 
+    COLLECTION_PROVINCE, COLLECTION_ACCOUNT, COLLECTION_CITY, COLLECTION_NAME, COLLECTION_EMAIL, 
+    COLLECTION_BRANCH, COLLECTION_MOBILE, SUPPLY_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from hotel
+    where HOTEL_ID = #{hotelId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from hotel
+    where HOTEL_ID = #{hotelId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="tt.wifi.app.hotel.model.Hotel" >
+    insert into hotel (HOTEL_ID, NAME, TITLE, 
+      ADDRESS, GPS_LOCATION, PHONE_NUMBER, 
+      LIST_IMG, STATE, SUPPLY_NAME, 
+      SUPPLY_CONTACT, SUPPLY_LEGAL_PHONE, SUPPLY_AGAINST_PHONE, 
+      SUPPLY_LEGAL_PERSON, PASSWORD, SUPPLY_DISCRIPTION, 
+      CONTRACT, LICENCE, PERMIT, 
+      IS_DELETE, ACCOUNT, COLLECTION_BANK, 
+      COLLECTION_PROVINCE, COLLECTION_ACCOUNT, 
+      COLLECTION_CITY, COLLECTION_NAME, COLLECTION_EMAIL, 
+      COLLECTION_BRANCH, COLLECTION_MOBILE, SUPPLY_ID, 
+      CONTENT)
+    values (#{hotelId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{gpsLocation,jdbcType=OTHER}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{listImg,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{supplyName,jdbcType=VARCHAR}, 
+      #{supplyContact,jdbcType=VARCHAR}, #{supplyLegalPhone,jdbcType=VARCHAR}, #{supplyAgainstPhone,jdbcType=VARCHAR}, 
+      #{supplyLegalPerson,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{supplyDiscription,jdbcType=VARCHAR}, 
+      #{contract,jdbcType=VARCHAR}, #{licence,jdbcType=VARCHAR}, #{permit,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{collectionBank,jdbcType=VARCHAR}, 
+      #{collectionProvince,jdbcType=VARCHAR}, #{collectionAccount,jdbcType=VARCHAR}, 
+      #{collectionCity,jdbcType=VARCHAR}, #{collectionName,jdbcType=VARCHAR}, #{collectionEmail,jdbcType=VARCHAR}, 
+      #{collectionBranch,jdbcType=VARCHAR}, #{collectionMobile,jdbcType=VARCHAR}, #{supplyId,jdbcType=BIGINT}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="tt.wifi.app.hotel.model.Hotel" >
+    insert into hotel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelId != null" >
+        HOTEL_ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="gpsLocation != null" >
+        GPS_LOCATION,
+      </if>
+      <if test="phoneNumber != null" >
+        PHONE_NUMBER,
+      </if>
+      <if test="listImg != null" >
+        LIST_IMG,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="supplyName != null" >
+        SUPPLY_NAME,
+      </if>
+      <if test="supplyContact != null" >
+        SUPPLY_CONTACT,
+      </if>
+      <if test="supplyLegalPhone != null" >
+        SUPPLY_LEGAL_PHONE,
+      </if>
+      <if test="supplyAgainstPhone != null" >
+        SUPPLY_AGAINST_PHONE,
+      </if>
+      <if test="supplyLegalPerson != null" >
+        SUPPLY_LEGAL_PERSON,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="supplyDiscription != null" >
+        SUPPLY_DISCRIPTION,
+      </if>
+      <if test="contract != null" >
+        CONTRACT,
+      </if>
+      <if test="licence != null" >
+        LICENCE,
+      </if>
+      <if test="permit != null" >
+        PERMIT,
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE,
+      </if>
+      <if test="account != null" >
+        ACCOUNT,
+      </if>
+      <if test="collectionBank != null" >
+        COLLECTION_BANK,
+      </if>
+      <if test="collectionProvince != null" >
+        COLLECTION_PROVINCE,
+      </if>
+      <if test="collectionAccount != null" >
+        COLLECTION_ACCOUNT,
+      </if>
+      <if test="collectionCity != null" >
+        COLLECTION_CITY,
+      </if>
+      <if test="collectionName != null" >
+        COLLECTION_NAME,
+      </if>
+      <if test="collectionEmail != null" >
+        COLLECTION_EMAIL,
+      </if>
+      <if test="collectionBranch != null" >
+        COLLECTION_BRANCH,
+      </if>
+      <if test="collectionMobile != null" >
+        COLLECTION_MOBILE,
+      </if>
+      <if test="supplyId != null" >
+        SUPPLY_ID,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelId != null" >
+        #{hotelId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsLocation != null" >
+        #{gpsLocation,jdbcType=OTHER},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="listImg != null" >
+        #{listImg,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="supplyName != null" >
+        #{supplyName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyContact != null" >
+        #{supplyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyLegalPhone != null" >
+        #{supplyLegalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyAgainstPhone != null" >
+        #{supplyAgainstPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyLegalPerson != null" >
+        #{supplyLegalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyDiscription != null" >
+        #{supplyDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null" >
+        #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="licence != null" >
+        #{licence,jdbcType=VARCHAR},
+      </if>
+      <if test="permit != null" >
+        #{permit,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionBank != null" >
+        #{collectionBank,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionProvince != null" >
+        #{collectionProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionAccount != null" >
+        #{collectionAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionCity != null" >
+        #{collectionCity,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionName != null" >
+        #{collectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionEmail != null" >
+        #{collectionEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionBranch != null" >
+        #{collectionBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionMobile != null" >
+        #{collectionMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyId != null" >
+        #{supplyId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="tt.wifi.app.hotel.model.Hotel" >
+    update hotel
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="gpsLocation != null" >
+        GPS_LOCATION = #{gpsLocation,jdbcType=OTHER},
+      </if>
+      <if test="phoneNumber != null" >
+        PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="listImg != null" >
+        LIST_IMG = #{listImg,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="supplyName != null" >
+        SUPPLY_NAME = #{supplyName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyContact != null" >
+        SUPPLY_CONTACT = #{supplyContact,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyLegalPhone != null" >
+        SUPPLY_LEGAL_PHONE = #{supplyLegalPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyAgainstPhone != null" >
+        SUPPLY_AGAINST_PHONE = #{supplyAgainstPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyLegalPerson != null" >
+        SUPPLY_LEGAL_PERSON = #{supplyLegalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyDiscription != null" >
+        SUPPLY_DISCRIPTION = #{supplyDiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="contract != null" >
+        CONTRACT = #{contract,jdbcType=VARCHAR},
+      </if>
+      <if test="licence != null" >
+        LICENCE = #{licence,jdbcType=VARCHAR},
+      </if>
+      <if test="permit != null" >
+        PERMIT = #{permit,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        IS_DELETE = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionBank != null" >
+        COLLECTION_BANK = #{collectionBank,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionProvince != null" >
+        COLLECTION_PROVINCE = #{collectionProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionAccount != null" >
+        COLLECTION_ACCOUNT = #{collectionAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionCity != null" >
+        COLLECTION_CITY = #{collectionCity,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionName != null" >
+        COLLECTION_NAME = #{collectionName,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionEmail != null" >
+        COLLECTION_EMAIL = #{collectionEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionBranch != null" >
+        COLLECTION_BRANCH = #{collectionBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionMobile != null" >
+        COLLECTION_MOBILE = #{collectionMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyId != null" >
+        SUPPLY_ID = #{supplyId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where HOTEL_ID = #{hotelId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="tt.wifi.app.hotel.model.Hotel" >
+    update hotel
+    set NAME = #{name,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      GPS_LOCATION = #{gpsLocation,jdbcType=OTHER},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      LIST_IMG = #{listImg,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      SUPPLY_NAME = #{supplyName,jdbcType=VARCHAR},
+      SUPPLY_CONTACT = #{supplyContact,jdbcType=VARCHAR},
+      SUPPLY_LEGAL_PHONE = #{supplyLegalPhone,jdbcType=VARCHAR},
+      SUPPLY_AGAINST_PHONE = #{supplyAgainstPhone,jdbcType=VARCHAR},
+      SUPPLY_LEGAL_PERSON = #{supplyLegalPerson,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SUPPLY_DISCRIPTION = #{supplyDiscription,jdbcType=VARCHAR},
+      CONTRACT = #{contract,jdbcType=VARCHAR},
+      LICENCE = #{licence,jdbcType=VARCHAR},
+      PERMIT = #{permit,jdbcType=VARCHAR},
+      IS_DELETE = #{isDelete,jdbcType=INTEGER},
+      ACCOUNT = #{account,jdbcType=VARCHAR},
+      COLLECTION_BANK = #{collectionBank,jdbcType=VARCHAR},
+      COLLECTION_PROVINCE = #{collectionProvince,jdbcType=VARCHAR},
+      COLLECTION_ACCOUNT = #{collectionAccount,jdbcType=VARCHAR},
+      COLLECTION_CITY = #{collectionCity,jdbcType=VARCHAR},
+      COLLECTION_NAME = #{collectionName,jdbcType=VARCHAR},
+      COLLECTION_EMAIL = #{collectionEmail,jdbcType=VARCHAR},
+      COLLECTION_BRANCH = #{collectionBranch,jdbcType=VARCHAR},
+      COLLECTION_MOBILE = #{collectionMobile,jdbcType=VARCHAR},
+      SUPPLY_ID = #{supplyId,jdbcType=BIGINT},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where HOTEL_ID = #{hotelId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="tt.wifi.app.hotel.model.Hotel" >
+    update hotel
+    set NAME = #{name,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      GPS_LOCATION = #{gpsLocation,jdbcType=OTHER},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      LIST_IMG = #{listImg,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      SUPPLY_NAME = #{supplyName,jdbcType=VARCHAR},
+      SUPPLY_CONTACT = #{supplyContact,jdbcType=VARCHAR},
+      SUPPLY_LEGAL_PHONE = #{supplyLegalPhone,jdbcType=VARCHAR},
+      SUPPLY_AGAINST_PHONE = #{supplyAgainstPhone,jdbcType=VARCHAR},
+      SUPPLY_LEGAL_PERSON = #{supplyLegalPerson,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      SUPPLY_DISCRIPTION = #{supplyDiscription,jdbcType=VARCHAR},
+      CONTRACT = #{contract,jdbcType=VARCHAR},
+      LICENCE = #{licence,jdbcType=VARCHAR},
+      PERMIT = #{permit,jdbcType=VARCHAR},
+      IS_DELETE = #{isDelete,jdbcType=INTEGER},
+      ACCOUNT = #{account,jdbcType=VARCHAR},
+      COLLECTION_BANK = #{collectionBank,jdbcType=VARCHAR},
+      COLLECTION_PROVINCE = #{collectionProvince,jdbcType=VARCHAR},
+      COLLECTION_ACCOUNT = #{collectionAccount,jdbcType=VARCHAR},
+      COLLECTION_CITY = #{collectionCity,jdbcType=VARCHAR},
+      COLLECTION_NAME = #{collectionName,jdbcType=VARCHAR},
+      COLLECTION_EMAIL = #{collectionEmail,jdbcType=VARCHAR},
+      COLLECTION_BRANCH = #{collectionBranch,jdbcType=VARCHAR},
+      COLLECTION_MOBILE = #{collectionMobile,jdbcType=VARCHAR},
+      SUPPLY_ID = #{supplyId,jdbcType=BIGINT}
+    where HOTEL_ID = #{hotelId,jdbcType=BIGINT}
+  </update>
+</mapper>
